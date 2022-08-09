@@ -1,0 +1,22 @@
+configs:
+  secret:
+    argocdServerAdminPassword: ${admin_password}
+    argocdServerAdminPasswordMtime: "2020-01-01T10:11:12Z"
+
+openshift:
+  enabled: ${openshift}
+
+server:
+  env:
+    - name: "TZ"
+      value: ${timezone}
+  %{ if openshift == "false" }
+  extraArgs:
+    - "--insecure"
+    - "--rootpath=/argocd"
+    - "--basehref=/argocd"
+  ingress:
+    enabled: ${ingress}
+  %{ endif }
+  route:
+    enabled: ${openshift}
