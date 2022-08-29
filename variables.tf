@@ -1,7 +1,7 @@
 variable "argocd_chart_version" {
-  description = "ArgoCD chart version to install. If not specified, latest version is installed"
+  description = "ArgoCD chart version to install. If not specified, latest supported version is installed"
   type        = string
-  default     = null
+  default     = "4.10.9"
 }
 
 variable "argocd_timezone" {
@@ -9,7 +9,7 @@ variable "argocd_timezone" {
   type        = string
   validation {
     condition     = can(regex("/", var.argocd_timezone))
-    error_message = "Please provide the timezone in TZ format"
+    error_message = "Please provide the timezone in TZ format."
   }
   default = "Europe/Berlin"
 }
@@ -21,13 +21,25 @@ variable "argocd_ingress_enabled" {
 }
 
 variable "argocd_openshift" {
-  description = "Whether ArgoCD is deployed on OpenShift. If set to `true`, OpenShift route will be created and repo server will run under a random uid instead of 0"
+  description = "Whether ArgoCD is deployed on OpenShift. If set to `true`, OpenShift route will be created and repo server will run under a random UID instead of 0"
   type        = bool
   default     = false
 }
 
+variable "argocd_admin_password_length" {
+  description = "Length of the randomly generated password for the ArgoCD admin user"
+  type        = number
+  default     = 12
+}
+
+variable "argocd_admin_password_special_characters" {
+  description = "Special characters to use for the randomly generated password for the ArgoCD admin user"
+  type        = string
+  default     = "_%@!"
+}
+
 variable "argocd_namespace" {
-  description = "Kubernetes namespace to install ArgoCD chart to"
+  description = "Kubernetes/OpenShift namespace to install ArgoCD chart to"
   type        = string
   default     = "argocd"
 }
@@ -39,11 +51,11 @@ variable "argocd_namespace_create" {
 }
 
 variable "argocd_repository_url" {
-  description = "Git repository URL where the App of Apps manifests reside"
+  description = "Git repository URL to be added to ArgoCD"
   type        = string
   validation {
     condition     = var.argocd_repository_url != null ? substr(var.argocd_repository_url, 0, 8) == "https://" : true
-    error_message = "Only https is supported for argocd_project_source_repo_url"
+    error_message = "Only https is supported for argocd_project_source_repo_url."
   }
   default = null
 }
@@ -69,25 +81,25 @@ variable "argocd_repository_password" {
 }
 
 variable "argocd_project_name" {
-  description = "Name of the additional project to be created"
+  description = "Name of the ArgoCD project to be created"
   type        = string
   default     = null
 }
 
 variable "argocd_application_name" {
-  description = "Name of the additional application to be created"
+  description = "Name of the ArgoCD application to be created"
   type        = string
   default     = null
 }
 
 variable "argocd_application_repo_branch" {
-  description = "Git repository branch where the App of Apps manifests reside"
+  description = "Git repository branch where the ArgoCD application manifests reside"
   type        = string
   default     = "main"
 }
 
 variable "argocd_application_repo_path" {
-  description = "Path within the Git repository where the App of Apps manifests reside"
+  description = "Path within the Git repository where the ArgoCD application manifests reside"
   type        = string
   default     = ""
 }
