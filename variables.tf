@@ -21,7 +21,7 @@ variable "argocd_ingress_enabled" {
 }
 
 variable "argocd_openshift" {
-  description = "Whether ArgoCD is deployed on OpenShift. If set to `true`, OpenShift route will be created and repo server will run under a random uid instead of 0"
+  description = "Whether ArgoCD is deployed on OpenShift. If set to `true`, OpenShift route will be created and repo server will run under a random UID instead of 0"
   type        = bool
   default     = false
 }
@@ -39,7 +39,7 @@ variable "argocd_admin_password_special_characters" {
 }
 
 variable "argocd_namespace" {
-  description = "Kubernetes namespace to install ArgoCD chart to"
+  description = "Kubernetes/OpenShift namespace to install ArgoCD chart to"
   type        = string
   default     = "argocd"
 }
@@ -51,7 +51,7 @@ variable "argocd_namespace_create" {
 }
 
 variable "argocd_repository_url" {
-  description = "Git repository URL where the App of Apps manifests reside"
+  description = "Git repository URL to be added to ArgoCD"
   type        = string
   validation {
     condition     = var.argocd_repository_url != null ? substr(var.argocd_repository_url, 0, 8) == "https://" : true
@@ -81,25 +81,25 @@ variable "argocd_repository_password" {
 }
 
 variable "argocd_project_name" {
-  description = "Name of the additional project to be created"
+  description = "Name of the ArgoCD project to be created"
   type        = string
   default     = null
 }
 
 variable "argocd_application_name" {
-  description = "Name of the additional application to be created"
+  description = "Name of the ArgoCD application to be created"
   type        = string
   default     = null
 }
 
 variable "argocd_application_repo_branch" {
-  description = "Git repository branch where the App of Apps manifests reside"
+  description = "Git repository branch where the ArgoCD application manifests reside"
   type        = string
   default     = "main"
 }
 
 variable "argocd_application_repo_path" {
-  description = "Path within the Git repository where the App of Apps manifests reside"
+  description = "Path within the Git repository where the ArgoCD application manifests reside"
   type        = string
   default     = ""
 }
