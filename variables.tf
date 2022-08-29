@@ -26,6 +26,18 @@ variable "argocd_openshift" {
   default     = false
 }
 
+variable "argocd_admin_password_length" {
+  description = "Length of the randomly generated password for the ArgoCD admin user"
+  type        = number
+  default     = 12
+}
+
+variable "argocd_admin_password_special_characters" {
+  description = "Special characters to use for the randomly generated password for the ArgoCD admin user"
+  type        = string
+  default     = "_%@!"
+}
+
 variable "argocd_namespace" {
   description = "Kubernetes namespace to install ArgoCD chart to"
   type        = string

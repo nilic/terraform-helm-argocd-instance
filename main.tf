@@ -45,9 +45,9 @@ locals {
 }
 
 resource "random_password" "argocd_admin_password" {
-  length           = 12
+  length           = var.argocd_admin_password_length
   special          = true
-  override_special = "_%@!"
+  override_special = var.argocd_admin_password_special_characters
 }
 
 resource "helm_release" "argocd" {
