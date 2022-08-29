@@ -5,7 +5,7 @@
   *
   * Optionally, Argo repository, project and application resources can be added by the module after deployment. This allows for ArgoCD bootstrap according to the [app of apps pattern](https://argo-cd.readthedocs.io/en/stable/operator-manual/cluster-bootstrapping/).
   *
-  * This module version supports ArgoCD charts up to (and not including) 5.0.0.
+  * This module version supports ArgoCD chart versions >= 5.0.0.
   */
 
 locals {
@@ -86,6 +86,8 @@ resource "helm_release" "argocd" {
 }
 
 resource "helm_release" "argocd-apps" {
+  count = (local.additional_project || local.additional_application) ? 1 : 0
+
   name              = "argocd-apps"
   chart             = "argocd-apps"
   repository        = "https://argoproj.github.io/argo-helm"
