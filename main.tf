@@ -1,5 +1,5 @@
 /**
-  * # Terraform module for deploying ArgoCD instances
+  * # Terraform module for ArgoCD deploy and bootstrap
   *
   * This module allows for deploying an ArgoCD instance on Kubernetes and OpenShift via the [official ArgoCD Helm chart](https://github.com/argoproj/argo-helm).
   *
