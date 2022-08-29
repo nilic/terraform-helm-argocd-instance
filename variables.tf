@@ -9,7 +9,7 @@ variable "argocd_timezone" {
   type        = string
   validation {
     condition     = can(regex("/", var.argocd_timezone))
-    error_message = "Please provide the timezone in TZ format"
+    error_message = "Please provide the timezone in TZ format."
   }
   default = "Europe/Berlin"
 }
@@ -55,7 +55,7 @@ variable "argocd_repository_url" {
   type        = string
   validation {
     condition     = var.argocd_repository_url != null ? substr(var.argocd_repository_url, 0, 8) == "https://" : true
-    error_message = "Only https is supported for argocd_project_source_repo_url"
+    error_message = "Only https is supported for argocd_project_source_repo_url."
   }
   default = null
 }
