@@ -1,7 +1,7 @@
 variable "argocd_chart_version" {
-  description = "ArgoCD chart version to install. If not specified, latest version is installed"
+  description = "ArgoCD chart version to install. If not specified, latest supported version is installed"
   type        = string
-  default     = null
+  default     = "4.10.9"
 }
 
 variable "argocd_timezone" {

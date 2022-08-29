@@ -4,6 +4,8 @@
   * This module allows for deploying an ArgoCD instance on Kubernetes and OpenShift via the [official ArgoCD Helm chart](https://github.com/argoproj/argo-helm).
   *
   * Optionally, Argo repository, project and application resources can be added by the module after deployment. This allows for ArgoCD bootstrap according to the [app of apps pattern](https://argo-cd.readthedocs.io/en/stable/operator-manual/cluster-bootstrapping/).
+  *
+  * This module version supports ArgoCD charts up to (and not including) 5.0.0.
   */
 
 locals {
