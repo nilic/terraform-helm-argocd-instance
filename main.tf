@@ -90,7 +90,7 @@ resource "helm_release" "argocd-apps" {
   chart             = "argocd-apps"
   repository        = "https://argoproj.github.io/argo-helm"
   version           = var.argocd_apps_chart_version
-  namespace         = helm_release.argocd.metadata.namespace
+  namespace         = helm_release.argocd.namespace
   create_namespace  = false
   timeout           = 600
   wait              = true
