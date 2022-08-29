@@ -73,7 +73,7 @@ resource "helm_release" "argocd" {
   atomic            = true
   dependency_update = true
 
-  values = concat(local.server_settings, local.repository, local.project, local.application, var.argocd_chart_value_files)
+  values = concat(local.server_settings, local.repository, var.argocd_chart_value_files)
 
   dynamic "set" {
     for_each = var.argocd_chart_values
@@ -83,4 +83,20 @@ resource "helm_release" "argocd" {
       value = set.value
     }
   }
+}
+
+resource "helm_release" "argocd-apps" {
+  name              = "argocd-apps"
+  chart             = "argocd-apps"
+  repository        = "https://argoproj.github.io/argo-helm"
+  version           = var.argocd_apps_chart_version
+  namespace         = helm_release.argocd.metadata.namespace
+  create_namespace  = false
+  timeout           = 600
+  wait              = true
+  wait_for_jobs     = true
+  atomic            = true
+  dependency_update = true
+
+  values = concat(local.project, local.application)
 }
