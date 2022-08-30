@@ -4,8 +4,6 @@ This module allows for deploying an ArgoCD instance on Kubernetes and OpenShift 
 
 Optionally, Argo repository, project and application resources can be added by the module after deployment. This allows for ArgoCD bootstrap according to the [app of apps pattern](https://argo-cd.readthedocs.io/en/stable/operator-manual/cluster-bootstrapping/).
 
-This module version supports ArgoCD charts up to (and not including) 5.0.0.
-
 ## Requirements
 
 | Name | Version |
@@ -30,6 +28,7 @@ No modules.
 | Name | Type |
 |------|------|
 | [helm_release.argocd](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [helm_release.argocd-apps](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [random_password.argocd_admin_password](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) | resource |
 
 ## Inputs
@@ -41,9 +40,10 @@ No modules.
 | <a name="input_argocd_application_name"></a> [argocd\_application\_name](#input\_argocd\_application\_name) | Name of the ArgoCD application to be created | `string` | `null` | no |
 | <a name="input_argocd_application_repo_branch"></a> [argocd\_application\_repo\_branch](#input\_argocd\_application\_repo\_branch) | Git repository branch where the ArgoCD application manifests reside | `string` | `"main"` | no |
 | <a name="input_argocd_application_repo_path"></a> [argocd\_application\_repo\_path](#input\_argocd\_application\_repo\_path) | Path within the Git repository where the ArgoCD application manifests reside | `string` | `""` | no |
+| <a name="input_argocd_apps_chart_version"></a> [argocd\_apps\_chart\_version](#input\_argocd\_apps\_chart\_version) | ArgoCD-apps chart version to install (used for creating project and application). If not specified, latest version is installed | `string` | `null` | no |
 | <a name="input_argocd_chart_value_files"></a> [argocd\_chart\_value\_files](#input\_argocd\_chart\_value\_files) | A list of paths to ArgoCD Helm chart values files to be added to the ArgoCD installation | `list(string)` | `[]` | no |
 | <a name="input_argocd_chart_values"></a> [argocd\_chart\_values](#input\_argocd\_chart\_values) | A map of key/value to set ArgoCD chart values or override defaults.<br>The key must be specified as the full path to the key, e.g: `configs.secret.bitbucketServerSecret`. <br>Please consult [ArgoCD Helm chart docs](https://github.com/argoproj/argo-helm/tree/main/charts/argo-cd). | `map(string)` | `{}` | no |
-| <a name="input_argocd_chart_version"></a> [argocd\_chart\_version](#input\_argocd\_chart\_version) | ArgoCD chart version to install. If not specified, latest supported version is installed | `string` | `"4.10.9"` | no |
+| <a name="input_argocd_chart_version"></a> [argocd\_chart\_version](#input\_argocd\_chart\_version) | ArgoCD chart version to install. Module supports chart versions >= 5.0.0. If not specified, latest version is installed | `string` | `null` | no |
 | <a name="input_argocd_ingress_enabled"></a> [argocd\_ingress\_enabled](#input\_argocd\_ingress\_enabled) | Whether to enable a Kubernetes Ingress resource for the ArgoCD server. Will be set to `false` if `argocd_openshift` set to `true` | `bool` | `false` | no |
 | <a name="input_argocd_namespace"></a> [argocd\_namespace](#input\_argocd\_namespace) | Kubernetes/OpenShift namespace to install ArgoCD chart to | `string` | `"argocd"` | no |
 | <a name="input_argocd_namespace_create"></a> [argocd\_namespace\_create](#input\_argocd\_namespace\_create) | Whether to create the namespace where ArgoCD chart will be installed | `bool` | `true` | no |
