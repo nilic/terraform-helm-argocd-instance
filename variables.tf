@@ -1,5 +1,5 @@
 variable "argocd_chart_version" {
-  description = "ArgoCD chart version to install. Module supports chart versions >= 5.0.0. If not specified, latest version is installed"
+  description = "ArgoCD chart version to install. If not specified, latest version is installed"
   type        = string
   default     = null
 }
