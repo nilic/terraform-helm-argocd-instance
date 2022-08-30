@@ -4,8 +4,6 @@
   * This module allows for deploying an ArgoCD instance on Kubernetes and OpenShift via the [official ArgoCD Helm chart](https://github.com/argoproj/argo-helm).
   *
   * Optionally, Argo repository, project and application resources can be added by the module after deployment. This allows for ArgoCD bootstrap according to the [app of apps pattern](https://argo-cd.readthedocs.io/en/stable/operator-manual/cluster-bootstrapping/).
-  *
-  * This module version supports ArgoCD charts up to (and not including) 5.0.0.
   */
 
 locals {
@@ -73,7 +71,7 @@ resource "helm_release" "argocd" {
   atomic            = true
   dependency_update = true
 
-  values = concat(local.server_settings, local.repository, local.project, local.application, var.argocd_chart_value_files)
+  values = concat(local.server_settings, local.repository, var.argocd_chart_value_files)
 
   dynamic "set" {
     for_each = var.argocd_chart_values
@@ -83,4 +81,22 @@ resource "helm_release" "argocd" {
       value = set.value
     }
   }
+}
+
+resource "helm_release" "argocd-apps" {
+  count = (local.additional_project || local.additional_application) ? 1 : 0
+
+  name              = "argocd-apps"
+  chart             = "argocd-apps"
+  repository        = "https://argoproj.github.io/argo-helm"
+  version           = var.argocd_apps_chart_version
+  namespace         = helm_release.argocd.namespace
+  create_namespace  = false
+  timeout           = 600
+  wait              = true
+  wait_for_jobs     = true
+  atomic            = true
+  dependency_update = true
+
+  values = concat(local.project, local.application)
 }

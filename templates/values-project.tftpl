@@ -1,12 +1,11 @@
-server:
-  additionalProjects:
-    - name: ${name}
-      namespace: ${namespace}
-      sourceRepos:
-        - "*"
-      destinations:
-        - namespace: "*"
-          server: "https://kubernetes.default.svc"
-      clusterResourceWhitelist:
-        - group: "*"
-          kind: "*"
+projects:
+  - name: ${name}
+    namespace: ${namespace}
+    sourceRepos:
+      - "*"
+    destinations:
+      - namespace: "*"
+        server: "https://kubernetes.default.svc"
+    clusterResourceWhitelist:
+      - group: "*"
+        kind: "*"
