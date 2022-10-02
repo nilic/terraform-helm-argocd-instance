@@ -8,6 +8,7 @@ module "argocd" {
   source = "../.."
 
   argocd_ingress_enabled                   = true
+  argocd_ingress_host                      = "argocd.example.com"
   argocd_admin_password_length             = 16
   argocd_admin_password_special_characters = "!_"
   argocd_project_name                      = "my-project"

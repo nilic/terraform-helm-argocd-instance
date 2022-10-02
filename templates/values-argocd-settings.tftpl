@@ -13,10 +13,12 @@ server:
   %{ if openshift == "false" }
   extraArgs:
     - "--insecure"
-    - "--rootpath=/argocd"
-    - "--basehref=/argocd"
   ingress:
     enabled: ${ingress}
+    %{ if ingress_host != "" }
+    hosts:
+      - ${ingress_host}
+    %{ endif }
   %{ endif }
   route:
     enabled: ${openshift}

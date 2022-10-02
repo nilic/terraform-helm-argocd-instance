@@ -26,6 +26,12 @@ variable "argocd_ingress_enabled" {
   default     = false
 }
 
+variable "argocd_ingress_host" {
+  description = "Host for the created Ingress resource. If not set, Ingress resource will be created with `*` as host. Honored only if `argocd_ingress_enabled` set to `true`"
+  type        = string
+  default     = ""
+}
+
 variable "argocd_openshift" {
   description = "Whether ArgoCD is deployed on OpenShift. If set to `true`, OpenShift route will be created and repo server will run under a random UID instead of 0"
   type        = bool
