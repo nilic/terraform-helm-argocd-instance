@@ -7,6 +7,5 @@ provider "helm" {
 module "argocd" {
   source = "../.."
 
-  argocd_ingress_enabled = true
-  argocd_ingress_host    = "argo.foo.bar"
+  argocd_ingress_host = "argo.foo.bar"
 }
