@@ -17,6 +17,7 @@ locals {
       admin_password = bcrypt(random_password.argocd_admin_password.result),
       timezone       = var.argocd_timezone
       ingress        = var.argocd_ingress_enabled ? "true" : "false"
+      ingress_hosts  = var.argocd_ingress_hosts
       openshift      = var.argocd_openshift ? "true" : "false"
     }
   )]

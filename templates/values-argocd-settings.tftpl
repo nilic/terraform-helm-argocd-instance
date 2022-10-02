@@ -17,6 +17,7 @@ server:
     - "--basehref=/argocd"
   ingress:
     enabled: ${ingress}
+    hosts: ${ingress_hosts}
   %{ endif }
   route:
     enabled: ${openshift}
