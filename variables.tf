@@ -26,10 +26,10 @@ variable "argocd_ingress_enabled" {
   default     = false
 }
 
-variable "argocd_ingress_hosts" {
-  description = "List of hosts for the created Ingress resource. Honored only if `argocd_ingress_enabled` set to `true`"
-  type        = list(string)
-  default     = []
+variable "argocd_ingress_host" {
+  description = "Host for the created Ingress resource. If not set, Ingress resource will be created with `*` as host. Honored only if `argocd_ingress_enabled` set to `true`"
+  type        = string
+  default     = ""
 }
 
 variable "argocd_openshift" {
